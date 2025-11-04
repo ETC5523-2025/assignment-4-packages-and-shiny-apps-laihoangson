@@ -30,8 +30,9 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../index.html"><span class="fa fa-home fa-lg"></span></a></li>
-<li class="nav-item"><a class="nav-link" href="../reference/index.html">Functions</a></li>
 <li class="active nav-item"><a class="nav-link" href="../articles/introduction.html">Introduction</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/datadesc.html">Data Description</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">References</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -74,11 +75,8 @@ datasets directly.</p>
 <div class="section level2">
 <h2 id="the-breaches-dataset">The Breaches Dataset<a class="anchor" aria-label="anchor" href="#the-breaches-dataset"></a>
 </h2>
-<p>The <code>breaches_data</code> tibble contains detailed information
+<p>The <code>breaches_data</code> dataset contains detailed information
 on individual quarantine breach events in Australia.</p>
-<p>Each row corresponds to a single breach event, with information such
-as the state, date, facility, associated case, COVID-19 variant, onward
-transmission, vaccination status, and reference link.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">breaches_data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 9</span></span></span>
@@ -94,16 +92,8 @@ transmission, vaccination status, and reference link.</p>
 <div class="section level2">
 <h2 id="the-quarantine-risk-dataset">The Quarantine Risk Dataset<a class="anchor" aria-label="anchor" href="#the-quarantine-risk-dataset"></a>
 </h2>
-<p>The <code>data_time</code> tibble contains aggregated information on
+<p>The <code>data_time</code> dataset contains aggregated information on
 estimated quarantine risk over time.</p>
-<p>Each row represents a state or the overall Australia total for a
-given date, with the following columns: <code>report_date</code> - the
-date of the risk estimate; <code>state</code> - state code (or “AUS” for
-the national total); <code>total</code> - estimated total quarantine
-risk, i.e., the modelled likelihood that the quarantine system could
-lead to community transmission; and <code>breach</code> - a more
-specific estimate focused on risks associated with quarantine system
-failures (may contain NA if not reported).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data_time</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span></span>

@@ -28,9 +28,8 @@ library(dplyr)
 
 ## The Breaches Dataset
 
-The `breaches_data` tibble contains detailed information on individual quarantine breach events in Australia.
+The `breaches_data` dataset contains detailed information on individual quarantine breach events in Australia.
 
-Each row corresponds to a single breach event, with information such as the state, date, facility, associated case, COVID-19 variant, onward transmission, vaccination status, and reference link.
 
 ```{r}
 head(breaches_data)
@@ -38,9 +37,7 @@ head(breaches_data)
 
 ## The Quarantine Risk Dataset
 
-The `data_time` tibble contains aggregated information on estimated quarantine risk over time. 
-
-Each row represents a state or the overall Australia total for a given date, with the following columns: `report_date` - the date of the risk estimate; `state` - state code (or "AUS" for the national total); `total` - estimated total quarantine risk, i.e., the modelled likelihood that the quarantine system could lead to community transmission; and `breach` - a more specific estimate focused on risks associated with quarantine system failures (may contain NA if not reported).
+The `data_time` dataset contains aggregated information on estimated quarantine risk over time. 
 
 ```{r}
 head(data_time)

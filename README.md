@@ -1,9 +1,12 @@
 
 # QuarantineAnalysis
 
-This R package provides data and an interactive Shiny application to
-explore COVID-19 quarantine data in Australia for **ETC5523 Assignment
-4**.
+This R package provides both curated datasets and an interactive Shiny
+application to explore COVID-19 quarantine events and estimated risks
+across Australian states and territories. It is designed for **ETC5523
+Assignment 4**, but also serves as a general-purpose educational tool
+for understanding how quarantine breaches and modeled risk can be
+analyzed over time.
 
 ## Installation
 
@@ -15,7 +18,7 @@ with:
 remotes::install_github("ETC5523-2025/assignment-4-packages-and-shiny-apps-laihoangson")
 ```
 
-## Example Usage
+## Usage
 
 Once installed, you can load the package and launch the interactive
 Shiny app.
@@ -30,6 +33,31 @@ launch_app()
 head(breaches_data)
 head(data_time)
 ```
+
+## Key features
+
+Key features include:
+
+Curated Datasets
+
+- breaches_data: Individual quarantine breach events, including state,
+  date, facility, variant, vaccination status, and onward transmission
+  information.
+
+- data_time: Daily estimated quarantine risk aggregated by state and
+  nationally, allowing time-series analysis of potential system
+  failures.
+
+Interactive Shiny Application
+
+- Visualize monthly quarantine breaches as a bar chart.
+
+- Explore estimated total quarantine risk over time as a line plot.
+
+- Filter by state and date range to examine trends for specific regions.
+
+- Display raw data in searchable and sortable tables for transparency
+  and reproducibility.
 
 ## Documentation Website
 

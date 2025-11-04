@@ -1,0 +1,61 @@
+---
+title: "Data Description"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data Description}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Data Source
+
+The datasets are sourced from the following article:
+
+Zachreson, C., Shearer, F. M., Price, D. J., Lydeamore, M. J., McVernon, J., McCaw, J., & Geard, N. (2022). COVID-19 in low-tolerance border quarantine systems: Impact of the Delta variant of SARS-CoV-2. *Science Advances, 8*(15), eabm3624. <https://doi.org/10.1126/sciadv.abm3624>
+
+## The Breaches Dataset 
+
+The `breaches_data` dataset contains detailed information on individual quarantine breach events in Australia. It has 39 rows and 9 columns.
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(tibble)
+
+tribble(
+  ~Column,    ~Description,
+  "no",       "Record number",
+  "state",    "State or territory code",
+  "date",     "Date of the breach",
+  "facility", "Facility where breach occurred",
+  "case_name","Role of the person involved (e.g., staff, security)",
+  "variant",  "COVID-19 variant (if known)",
+  "onward",   "Whether onward transmission occurred (TRUE/FALSE)",
+  "vax",      "Vaccination status",
+  "link",     "Reference link"
+) |>
+  kable()
+```
+
+## The Quarantine Risk Dataset
+
+The `data_time` dataset contains aggregated information on estimated quarantine risk over time. It has 1,946 rows and 4 columns.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+tribble(
+  ~Column,      ~Description,
+  "report_date","The date of the risk estimate",
+  "state",      "State code (or \"AUS\" for the national total)",
+  "total",      "Estimated total quarantine risk - the modelled likelihood that the quarantine system could lead to community transmission",
+  "breach",     "Estimated risks associated with quarantine system failures (may be missing)"
+) |>
+  kable()
+```
+

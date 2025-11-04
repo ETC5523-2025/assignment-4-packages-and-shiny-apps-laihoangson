@@ -5,12 +5,29 @@ template:
   bootstrap: 5
   bootswatch: flatly
 
+authors:
+  "Hoang Son Lai":
+    roles: [aut, cre]
+    email: "lson21757@gmail.com"
+
 navbar:
   left:
     - icon: fa-home fa-lg
       href: index.html
-    - text: "Functions"
-      href: reference/index.html
     - text: "Introduction"
       href: articles/introduction.html
+    - text: "Data Description"
+      href: articles/datadesc.html
+    - text: "References"
+      href: reference/index.html
 
+
+# Reference page sections
+reference:
+  - title: "Function"
+    contents:
+      - launch_app
+  - title: "Data"
+    contents:
+      - breaches_data
+      - data_time
