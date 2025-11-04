@@ -40,11 +40,11 @@ Key features include:
 
 Curated Datasets
 
-- breaches_data: Individual quarantine breach events, including state,
+- `breaches_data`: Individual quarantine breach events, including state,
   date, facility, variant, vaccination status, and onward transmission
   information.
 
-- data_time: Daily estimated quarantine risk aggregated by state and
+- `data_time`: Daily estimated quarantine risk aggregated by state and
   nationally, allowing time-series analysis of potential system
   failures.
 
