@@ -1,0 +1,16 @@
+# _pkgdown.yml
+
+url: https://etc5523-2025.github.io/assignment-4-packages-and-shiny-apps-laihoangson/
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
+navbar:
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Functions"
+      href: reference/index.html
+    - text: "Introduction"
+      href: articles/introduction.html
+

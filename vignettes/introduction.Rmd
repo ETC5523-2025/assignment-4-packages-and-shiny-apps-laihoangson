@@ -1,0 +1,67 @@
+---
+title: "Introduction to the Quarantine Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to the Quarantine Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This package contains two datasets related to COVID-19 quarantine in Australia.
+
+## Loading the Data
+
+To get started, load the package. Once loaded, you can access the datasets directly.
+
+```{r, message=FALSE, warning=FALSE}
+library(QuarantineAnalysis)
+library(ggplot2)
+library(dplyr)
+```
+
+## The Breaches Dataset
+
+The `breaches_data` tibble contains detailed information on individual quarantine breach events in Australia.
+
+Each row corresponds to a single breach event, with information such as the state, date, facility, associated case, COVID-19 variant, onward transmission, vaccination status, and reference link.
+
+```{r}
+head(breaches_data)
+```
+
+## The Quarantine Risk Dataset
+
+The `data_time` tibble contains aggregated information on estimated quarantine risk over time. 
+
+Each row represents a state or the overall Australia total for a given date, with the following columns: `report_date` - the date of the risk estimate; `state` - state code (or "AUS" for the national total); `total` - estimated total quarantine risk, i.e., the modelled likelihood that the quarantine system could lead to community transmission; and `breach` - a more specific estimate focused on risks associated with quarantine system failures (may contain NA if not reported).
+
+```{r}
+head(data_time)
+```
+
+## Visualization examples
+
+```{r}
+#| fig-width: 5
+# Breaches by state
+breach_summary <- breaches_data %>%
+  group_by(state) %>%
+  summarise(
+    n_breaches = n(),
+    n_onward = sum(onward, na.rm = TRUE)
+  ) %>%
+  arrange(desc(n_breaches))
+
+ggplot(breach_summary, aes(x = reorder(state, -n_breaches), y = n_breaches)) +
+  geom_col(fill = "steelblue") +
+  labs(title = "Quarantine Breaches by Australian State",
+       x = "State", y = "Number of Breaches") +
+  theme_minimal()
+```

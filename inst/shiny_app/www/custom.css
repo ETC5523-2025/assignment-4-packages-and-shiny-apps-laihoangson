@@ -1,0 +1,16 @@
+* inst/shiny_app/www/custom.css */
+
+h2 { /* Targets the main title panel */
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 300;
+  color: #007bff;
+}
+
+/* Style the explanation text */
+.explanation-text {
+  font-size: 0.9em;
+  color: #555;
+  border-left: 3px solid #eee;
+  padding-left: 15px;
+  margin-top: 10px;
+}

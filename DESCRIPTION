@@ -1,0 +1,26 @@
+Package: QuarantineAnalysis
+Title: An Analysis of Australian COVID-19 Quarantine
+Version: 0.1.0
+Author: Hoang Son Lai <lson21757@gmail.com>
+Maintainer: Hoang Son Lai <lson21757@gmail.com>
+Description: An R package for analyzing and visualizing COVID-19 quarantine data in Australia. Includes interactive Shiny app for data exploration.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    shiny,
+    ggplot2,
+    dplyr,
+    readxl,
+    lubridate,
+    plotly,
+    shinythemes
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Depends: 
+    R (>= 3.5)
+VignetteBuilder: knitr
