@@ -126,6 +126,16 @@ server <- function(input, output) {
   output$total_risk_plot <- renderPlotly({
     req(filtered_data()$risk)
 
+    # If "All States" selected, only use AUS (national total)
+    if (input$state_select == "All States") {
+      plot_data <- filtered_data()$risk |> filter(state == "AUS")
+      title_text <- "Average Monthly Quarantine Risk in Australia"
+    } else {
+      plot_data <- filtered_data()$risk
+      title_text <- paste("Average Monthly Quarantine Risk in", input$state_select)
+    }
+
+    # Aggregate by month
     risk_data <- filtered_data()$risk %>%
       mutate(year_month = format(report_date, "%Y-%m")) %>%
       group_by(year_month) %>%
