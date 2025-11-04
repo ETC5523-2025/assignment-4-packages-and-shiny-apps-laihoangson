@@ -136,7 +136,7 @@ server <- function(input, output) {
     }
 
     # Aggregate by month
-    risk_data <- filtered_data()$risk %>%
+    risk_data <- plot_data %>%
       mutate(year_month = format(report_date, "%Y-%m")) %>%
       group_by(year_month) %>%
       summarise(mean_total = mean(total, na.rm = TRUE), .groups = "drop")
@@ -156,7 +156,7 @@ server <- function(input, output) {
       )
     ) %>%
       layout(
-        title = paste("Average Monthly Quarantine Risk in", input$state_select),
+        title = title_text,
         xaxis = list(title = "Month", tickangle = -45),
         yaxis = list(title = "Mean Estimated Risk"),
         hovermode = "x unified"
