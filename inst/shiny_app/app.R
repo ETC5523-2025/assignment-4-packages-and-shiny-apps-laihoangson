@@ -33,13 +33,13 @@ ui <- fluidPage(
 
       sliderInput(
         "date_slider",
-        "Select Date Range:",
-        min = min(QuarantineAnalysis::breaches_data$date),
-        max = max(QuarantineAnalysis::breaches_data$date),
-        value = c(min(QuarantineAnalysis::breaches_data$date),
-                  max(QuarantineAnalysis::breaches_data$date)),
-        timeFormat = "%Y-%m",
-        step = 30
+        "Select Date Range for Line Chart:",
+        min = min(QuarantineAnalysis::data_time$report_date),
+        max = max(QuarantineAnalysis::data_time$report_date),
+        value = c(min(QuarantineAnalysis::data_time$report_date),
+                  max(QuarantineAnalysis::data_time$report_date)),
+        step = 1,
+        timeFormat = "%Y-%m-%d"
       ),
       hr(),
 
@@ -62,18 +62,18 @@ ui <- fluidPage(
           # Line Plot: Total Risk Time Series
           plotlyOutput(outputId = "total_risk_plot"),
           hr(),
-          h4("How to Interpret This Line Plot"),
+          h4("How to Interpret This Line Chart"),
           div(class = "explanation-text",
-              p("This line plot shows the daily estimated quarantine risk across Australia. You can use the dropdown on the left to filter the data for a specific state or view all states combined. You can also use the date slider on the left to filter the time period of interest")
+              p("This line chart shows the daily estimated quarantine risk across Australia. You can use the dropdown on the left to filter the data for a specific state or view all states combined. You can also use the date slider on the left to filter the time period of interest")
           ),
           hr(),
 
           # Bar plot for breaches
           plotlyOutput(outputId = "breach_plot"),
           hr(),
-          h4("How to Interpret This Bar Plot"),
+          h4("How to Interpret This Bar Chart"),
           div(class = "explanation-text",
-              p("This bar chart shows the number of quarantine breaches recorded each month. You can use the dropdown on the left to filter the data for a specific state or view all states combined. You can also use the date slider on the left to filter the time period of interest. This visualization helps to identify periods with a higher frequency of breaches.")
+              p("This bar chart shows the number of quarantine breaches recorded each month. You can use the dropdown on the left to filter the data for a specific state or view all states combined. This visualization helps to identify periods with a higher frequency of breaches.")
           )
         ),
         tabPanel(
@@ -99,26 +99,20 @@ server <- function(input, output) {
     breaches <- QuarantineAnalysis::breaches_data
     risk <- QuarantineAnalysis::data_time
 
+    # Convert to Date
+    start_date <- as.Date(input$date_slider[1])
+    end_date <- as.Date(input$date_slider[2])
+
     # Filter by state
     if (input$state_select != "All States") {
       breaches <- breaches |> filter(state == input$state_select)
       risk <- risk |> filter(state == input$state_select)
     }
 
-    # Filter by the selected date range
-    breaches <- breaches |>
-      filter(date >= input$date_slider[1],
-             date <= input$date_slider[2])
+    # Filter risk plot by the selected date range
+    risk <- risk |> filter(report_date >= start_date, report_date <= end_date)
 
-    risk <- risk |>
-      filter(report_date >= input$date_slider[1],
-             report_date <= input$date_slider[2])
-
-    # Return both datasets as a list
-    list(
-      breaches = breaches,
-      risk = risk
-    )
+    list(breaches = breaches, risk = risk)
   })
 
   # Risk line plot
@@ -184,7 +178,8 @@ server <- function(input, output) {
       layout(
         title = paste("Monthly Quarantine Breaches in", input$state_select),
         xaxis = list(title = "Month", tickangle = -45),
-        yaxis = list(title = "Number of Breaches")
+        yaxis = list(title = "Number of Breaches",
+                     tickformat = ".0f", tickmode = "linear", dtick = 1)
       )
   })
 
