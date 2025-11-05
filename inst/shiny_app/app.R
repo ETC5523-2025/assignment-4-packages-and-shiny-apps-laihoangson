@@ -83,7 +83,7 @@ ui <- fluidPage(
           hr(),
           h4("How to Interpret This Table"),
           div(class = "explanation-text",
-              p("This table displays the raw data for the selected state(s). You can use the date slider on the left to filter the time period of interest. You can also use the search box to filter results further or sort columns by clicking on the headers.")
+              p("This table displays the raw data for the selected state(s). You can also use the search box to filter results further or sort columns by clicking on the headers.")
           )
         )
       )
