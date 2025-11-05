@@ -48,8 +48,8 @@ ui <- fluidPage(
       p(strong("Month/Date:"), "The month or the date the event or risk estimate was recorded."),
       p(strong("Total Risk:"), "The modelled likelihood that the quarantine system could lead to spread into the community."),
       p(strong("Breaches:"), "Individual quarantine incidents officially reported by state health authorities."),
-      p(strong("Variant:"), "The COVID-19 variant associated with the breach."),
-      p(strong("Onward:"), "Whether the breach led to known community transmission (TRUE/FALSE).")
+      p(strong("Variant:"), "The COVID-19 variant associated with the breach (if known)."),
+      p(strong("Onward:"), "Whether onward transmission occurred (TRUE/FALSE).")
     ),
 
     # Main panel for displaying outputs
@@ -83,7 +83,7 @@ ui <- fluidPage(
           hr(),
           h4("How to Interpret This Table"),
           div(class = "explanation-text",
-              p("This table displays the raw data for the selected state(s). You can also use the search box to filter results further or sort columns by clicking on the headers.")
+              p("This table displays the raw breaches data. You can use the dropdown on the left to filter the data for a specific state or view all states combined. You can also use the search box to filter results further or sort columns by clicking on the headers.")
           )
         )
       )
