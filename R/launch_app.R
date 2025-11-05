@@ -1,7 +1,7 @@
 #' Launch the Quarantine Shiny Application
 #'
 #' This function starts the interactive Shiny app included in the package,
-#' which allows users to explore the quarantine breach data.
+#' which allows users to explore the quarantine data.
 #'
 #' @export
 #' @importFrom shiny runApp

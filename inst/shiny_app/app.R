@@ -46,10 +46,10 @@ ui <- fluidPage(
       h4("Field Descriptions"),
       p(strong("State:"), "The Australian state or territory represented in the dataset."),
       p(strong("Month/Date:"), "The month or the date the event or risk estimate was recorded."),
-      p(strong("Total Risk:"), "The modelled likelihood that the quarantine system could lead to spread into the community. This is averaged by month in the main plot."),
+      p(strong("Total Risk:"), "The modelled likelihood that the quarantine system could lead to spread into the community."),
       p(strong("Breaches:"), "Individual quarantine incidents officially reported by state health authorities."),
       p(strong("Variant:"), "The COVID-19 variant associated with the breach."),
-      p(strong("Onward Transmission:"), "Whether the breach led to known community transmission (TRUE/FALSE).")
+      p(strong("Onward:"), "Whether the breach led to known community transmission (TRUE/FALSE).")
     ),
 
     # Main panel for displaying outputs
@@ -64,7 +64,7 @@ ui <- fluidPage(
           hr(),
           h4("How to Interpret This Line Plot"),
           div(class = "explanation-text",
-              p("This line plot shows the estimated average quarantine risk for each month across Australia. “Total risk” represents the modelled likelihood that the quarantine system could lead to community transmission. Averaging by month helps smooth daily fluctuations and highlight longer-term risk patterns. You can use the dropdown on the left to filter the data for a specific state or view all states combined. You can also use the date slider on the left to filter the time period of interest")
+              p("This line plot shows the daily estimated quarantine risk across Australia. You can use the dropdown on the left to filter the data for a specific state or view all states combined. You can also use the date slider on the left to filter the time period of interest")
           ),
           hr(),
 
@@ -122,43 +122,42 @@ server <- function(input, output) {
   })
 
   # Risk line plot
-  # This plot shows the average monthly estimated quarantine risk
+  # This plot shows the daily estimated quarantine risk
   output$total_risk_plot <- renderPlotly({
     req(filtered_data()$risk)
 
     # If "All States" selected, only use AUS (national total)
     if (input$state_select == "All States") {
       plot_data <- filtered_data()$risk |> filter(state == "AUS")
-      title_text <- "Average Monthly Quarantine Risk in Australia"
+      title_text <- "Daily Quarantine Risk in Australia"
     } else {
       plot_data <- filtered_data()$risk
-      title_text <- paste("Average Monthly Quarantine Risk in", input$state_select)
+      title_text <- paste("Daily Quarantine Risk in", input$state_select)
     }
 
-    # Aggregate by month
+    # Plot by date
     risk_data <- plot_data %>%
-      mutate(year_month = format(report_date, "%Y-%m")) %>%
-      group_by(year_month) %>%
-      summarise(mean_total = mean(total, na.rm = TRUE), .groups = "drop")
+      arrange(report_date) %>%
+      select(report_date, total)
 
     plot_ly(
       data = risk_data,
-      x = ~year_month,
-      y = ~mean_total,
+      x = ~report_date,
+      y = ~total,
       type = "scatter",
       mode = "lines+markers",
       line = list(color = "#1f77b4", width = 2),
-      marker = list(size = 5, color = "#1f77b4"),
+      marker = list(size = 4, color = "#1f77b4"),
       hoverinfo = "text",
       text = ~paste(
-        "Month:", year_month,
-        "<br>Mean total risk:", round(mean_total, 2)
+        "Date:", format(report_date, "%Y-%m-%d"),
+        "<br>Total risk:", round(total, 2)
       )
     ) %>%
       layout(
         title = title_text,
-        xaxis = list(title = "Month", tickangle = -45),
-        yaxis = list(title = "Mean Estimated Risk"),
+        xaxis = list(title = "Date", tickangle = -45),
+        yaxis = list(title = "Estimated Total Risk"),
         hovermode = "x unified"
       )
   })

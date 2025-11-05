@@ -12,5 +12,5 @@ side effect of launching a Shiny application.
 }
 \description{
 This function starts the interactive Shiny app included in the package,
-which allows users to explore the quarantine breach data.
+which allows users to explore the quarantine data.
 }

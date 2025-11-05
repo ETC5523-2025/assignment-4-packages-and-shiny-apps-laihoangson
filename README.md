@@ -56,8 +56,8 @@ Interactive Shiny Application
 
 - Filter by state and date range to examine trends for specific regions.
 
-- Display raw data in searchable and sortable tables for transparency
-  and reproducibility.
+- Display breaches data in searchable and sortable tables for
+  transparency.
 
 ## Documentation Website
 
